@@ -1,6 +1,6 @@
 # gin-graphql-srv
 
-Implements a graphql server which uses Gin http framework for serving the platform for adding videoes and getting the list of all the videos till yet. For Database I might use MySQl with Redis cache.  
+Implements a graphql server which uses Gin http framework for serving the playground for adding videos and getting the list of all the videos till yet. For Database I might use MySQl with Redis cache.  
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.
 
 ## gqlgen
