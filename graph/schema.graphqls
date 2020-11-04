@@ -1,0 +1,33 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+
+# ! means required.
+type Video {
+  id: ID!
+  title: String!
+  url: String!
+  author: User!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  getVideos: [Video!]!
+}
+
+# another structure.
+input NewVideo {
+  title: String!
+  url: String!
+  userId: String!
+}
+
+# takes required input of type struct NewVideo and returns video.
+type Mutation {
+  createVideo(input: NewVideo!): Video!
+}
