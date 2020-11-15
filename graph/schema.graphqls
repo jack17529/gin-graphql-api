@@ -18,6 +18,7 @@ type User {
 
 type Query {
   getVideos: [Video!]!
+  # getVideoById(video_id: ID!): Video!
 }
 
 # another structure.
