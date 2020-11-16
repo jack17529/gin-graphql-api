@@ -1,5 +1,4 @@
-# graphql-srv
-https://gitlab.com/pragmaticreviews/graphql-go/-/blob/master/graph/schema.resolvers.go  
+# graphql-srv 
 Implements a graphql server that takes is used to create video and get the list of all the videos till yet. It has no database it stores everything in the memory.
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.
 
