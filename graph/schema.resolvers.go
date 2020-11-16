@@ -24,7 +24,6 @@ func getToken(length int) string {
 }
 
 func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo) (*model.Video, error) {
-	// panic(fmt.Errorf("not implemented"))
 
 	video := &model.Video{
 		ID:    getToken(10),
@@ -46,11 +45,21 @@ func (r *mutationResolver) CreateVideo(ctx context.Context, input model.NewVideo
 }
 
 func (r *queryResolver) GetVideos(ctx context.Context) ([]*model.Video, error) {
-	// panic(fmt.Errorf("not implemented"))
 	v, err := vr.FindAll()
 	if err != nil {
 		return nil, err
 	}
+	return v, nil
+}
+
+func (r *queryResolver) GetVideoByID(ctx context.Context, videoID string) (*model.Video, error) {
+	// panic(fmt.Errorf("not implemented"))
+
+	v, err := vr.FindVideoById(videoID)
+	if err != nil {
+		return nil, err
+	}
+
 	return v, nil
 }
 

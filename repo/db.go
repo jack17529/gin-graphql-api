@@ -27,6 +27,7 @@ func GetSession() (*sql.DB, error) {
 type VideoDB interface {
 	Save(video *model.Video) error
 	FindAll() ([]*model.Video, error)
+	FindVideoById(id string) (*model.Video, error)
 }
 
 type DBservice struct{}
@@ -39,7 +40,7 @@ func New() VideoDB {
 func (d *DBservice) Save(video *model.Video) error {
 	db, err := GetSession()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	stmt, prepareErr := db.Prepare(`
@@ -64,7 +65,7 @@ func (d *DBservice) Save(video *model.Video) error {
 func (d *DBservice) FindAll() ([]*model.Video, error) {
 	db, err := GetSession()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	rows, err := db.Query(`SELECT * FROM videos`)
@@ -94,4 +95,30 @@ func (d *DBservice) FindAll() ([]*model.Video, error) {
 
 	log.Println("Successfully found all videos")
 	return videos, nil
+}
+
+func (d *DBservice) FindVideoById(id string) (*model.Video, error) {
+
+	db, err := GetSession()
+	if err != nil {
+		return nil, err
+	}
+
+	var title, url, authorID, authorName string
+
+	err = db.QueryRow(`
+		SELECT title, url, author_id, author_name
+		FROM videos
+		WHERE id=?
+		`, id).Scan(&title, &url, &authorID, &authorName)
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Video{
+		ID:     id,
+		Title:  title,
+		URL:    url,
+		Author: &model.User{ID: authorID, Name: authorName},
+	}, nil
 }

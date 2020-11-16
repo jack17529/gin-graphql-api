@@ -17,7 +17,9 @@ func main() {
 
 	r := gin.Default()
 
+	// endpoint to access the playground.
 	r.GET("/", handler.GetPlayground())
+
 	r.POST("/query", handler.QueryPost())
 
 	r.Run(defaultPort)

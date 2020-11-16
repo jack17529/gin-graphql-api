@@ -1,4 +1,4 @@
-# graphql-srv 
+# graphql-srv  
 Implements a graphql server that takes is used to create video and get the list of all the videos till yet. It has no database it stores everything in the memory.
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.
 
@@ -15,7 +15,7 @@ Used `gqlgen` to generate the server code.
 Request
 ```
 mutation createVideo{
-  createVideo(input:{title:"video 1", url:"https://you.tube.com/vid1", userId:"1"}){
+  createVideo(input:{title:"video 2", url:"https://you.tube.com/vid2", userId:"2"}){
     author{
       id
     }
@@ -32,10 +32,10 @@ Response
   "data": {
     "createVideo": {
       "author": {
-        "id": "1"
+        "id": "2"
       },
-      "title": "video 1",
-      "url": "https://you.tube.com/vid1"
+      "title": "video 2",
+      "url": "https://you.tube.com/vid2"
     }
   }
 }
@@ -63,24 +63,56 @@ Response
   "data": {
     "getVideos": [
       {
-        "id": "T5577006791947779410",
-        "title": "video 1",
-        "url": "https://you.tube.com/vid1",
-        "author": {
-          "id": "1",
-          "name": "user 1"
-        }
-      },
-      {
-        "id": "T8674665223082153551",
+        "id": "2UWJUZOBCL",
         "title": "video 2",
         "url": "https://you.tube.com/vid2",
         "author": {
           "id": "2",
           "name": "user 2"
         }
+      },
+      {
+        "id": "ZTUNJ5O5IQ",
+        "title": "video 1",
+        "url": "https://you.tube.com/vid1",
+        "author": {
+          "id": "1",
+          "name": "user 1"
+        }
       }
     ]
+  }
+}
+```
+
+Request
+```
+query GetVideoByID{
+  getVideoById(video_id:"2UWJUZOBCL"){
+    id
+    title
+    url
+    author{
+      id
+      name
+    }
+  }
+}
+```
+
+Response
+```
+{
+  "data": {
+    "getVideoById": {
+      "id": "2UWJUZOBCL",
+      "title": "video 2",
+      "url": "https://you.tube.com/vid2",
+      "author": {
+        "id": "2",
+        "name": "user 2"
+      }
+    }
   }
 }
 ```
