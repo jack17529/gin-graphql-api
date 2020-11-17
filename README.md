@@ -1,4 +1,5 @@
-# graphql-srv  
+# graphql-srv
+https://gitlab.com/pragmaticreviews/graphql-go/-/blob/master/graph/schema.resolvers.go  
 Implements a graphql server that takes is used to create video and get the list of all the videos till yet. It has no database it stores everything in the memory.
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.
 
@@ -117,7 +118,9 @@ Response
 }
 ```
 
-## Database
+## MySQL
+
+https://github.com/go-sql-driver/mysql  
 
 Used MySQL database to keep the data.
 1. `systemctl start mysql.service`
@@ -133,3 +136,18 @@ Used MySQL database to keep the data.
 11. `describe videos;` to see the structure of the table.
 12. `select * from videos;` to see the table.
 13. `exit` to get out of the db.
+
+
+## Redis
+
+https://github.com/go-redis/redis  
+
+1. Use `redis-server` to start the redis server.
+2. On another terminal type `redis-cli` to play with cli.
+3. `select <INDEX>` to select the database.
+4. `set key1 value1`
+5. `get key1`
+6. `append key1 1`
+7. `keys *` to see all the keys.
+8. `set key3 value3 ex 10` key will expire after 10 seconds.
+9. `exit` to leave the cli.

@@ -7,12 +7,19 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/base32"
+	"graphql-srv/cache"
 	"graphql-srv/graph/generated"
 	"graphql-srv/graph/model"
 	"graphql-srv/repo"
+	"log"
+
+	"github.com/go-redis/redis/v8"
 )
 
-var vr repo.VideoDB = repo.New()
+var (
+	vr repo.VideoDB     = repo.New()
+	vc cache.VideoCache = cache.NewRedisCache("localhost:6379", 1, 10)
+)
 
 func getToken(length int) string {
 	randomBytes := make([]byte, 32)
@@ -55,11 +62,27 @@ func (r *queryResolver) GetVideos(ctx context.Context) ([]*model.Video, error) {
 func (r *queryResolver) GetVideoByID(ctx context.Context, videoID string) (*model.Video, error) {
 	// panic(fmt.Errorf("not implemented"))
 
+	log.Println("Getting video from ID")
+
+	videoInCache, err := vc.Get(videoID)
+	log.Println("got out of Get cache function successfully.")
+
+	if err != nil {
+		if err != redis.Nil {
+			return nil, err
+		}
+	} else {
+		return videoInCache, nil
+	}
+
+	log.Println("Not present in redis cache.")
 	v, err := vr.FindVideoById(videoID)
 	if err != nil {
 		return nil, err
 	}
 
+	log.Println("Storing the video in cache for 10 seconds.")
+	vc.Set(videoID, v)
 	return v, nil
 }
 
