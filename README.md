@@ -150,3 +150,8 @@ https://github.com/go-redis/redis
 7. `keys *` to see all the keys.
 8. `set key3 value3 ex 10` key will expire after 10 seconds.
 9. `exit` to leave the cli.
+
+## Docker
+1. Installation - https://www.ceos3c.com/hacking/install-docker-on-kali-linux/ depends on your os.
+2. `sudo systemctl start docker`
+3. 
