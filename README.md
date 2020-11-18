@@ -1,6 +1,7 @@
 # graphql-srv  
-Implements a graphql server that takes is used to create video and get the list of all the videos till yet. It has no database it stores everything in the memory.
-The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.
+•	Constructed a high performance GraphQL server using Gin framework that stores video database using MySQL.  
+•	Crafted mutations and queries for the server and modeled a caching service using Redis.  
+The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.  
 
 ## gqlgen
 https://github.com/99designs/gqlgen  
@@ -10,7 +11,7 @@ Used `gqlgen` to generate the server code.
 2. Use `gqlgen generate` command to generate the code, in the `graph` directory.
 3. `go run server.go` to run the server.
 
-## Queries
+## Queries and Mutations
 
 Request
 ```
