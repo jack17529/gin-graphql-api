@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-const dbsource = "root:password123@tcp(localhost:3306)/videoDB"
+const dbsource = "<USER>:<PASSWORD>@tcp(localhost:3306)/<DATABASE_NAME>"
 
 var db *sql.DB
 
