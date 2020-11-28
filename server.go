@@ -2,7 +2,6 @@ package main
 
 import (
 	"graphql-srv/handler"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,10 +9,10 @@ import (
 const defaultPort = ":8080"
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
-	}
+	// port := os.Getenv("PORT")
+	// if port == "" {
+	// 	port = defaultPort
+	// }
 
 	r := gin.Default()
 
