@@ -13,7 +13,7 @@ var db *sql.DB
 func getSession() (*sql.DB, error) {
 	var err error
 
-	db, err = sql.Open("mysql", dbsource)
+	db, err = sql.Open("backend-mysql", dbsource)
 	if err != nil {
 		return nil, err
 	}
