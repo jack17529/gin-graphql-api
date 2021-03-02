@@ -155,4 +155,44 @@ https://github.com/go-redis/redis
 ## Docker
 1. Installation - https://www.ceos3c.com/hacking/install-docker-on-kali-linux/ depends on your os.
 2. `sudo systemctl start docker`
-3. 
+3. `docker build -t <name of image you want to build>:<tag> .`
+4. `sudo docker images` to see the current image.
+5. `docker run -d -p 8080:8080 <name of image you want to build>:<tag>` pls run only in detach mode.
+6. `dokcer ps -a` to see all teh containers.
+7. `sudo docker logs -t <name of image you want to build>:<tag>` can be used to see the logs.
+8. `sudo docker stop <name of image you want to build>:<tag>` to stop the container.
+
+## docker-compose
+
+1. `sudo docker-compose up`
+2. `Ctrl+C` can be used to stop.
+3. `sudo dokcer-compose down` to stop all the containers.
+4. `sudo docker volume rm graphql-srv_mysql-vol` to remove the db volume container.
+
+## mysql
+
+1. `mysqldump -uroot -ppassword123 -d -B --events --routines --triggers videoDB > mysql_dump.sql` to dump the database.
+2. `sudo docker cp mysql_dump.sql <CONTAINER_ID>:/mysql_dump.sql` to copy the dump file in the mysql docker container.
+3. `sudo docker exec -it <CONTAINER_ID> /bin/bash` to get into the container.
+4. `mysql -uroot -ppassword123 < mysql_dump.sql` to import the mysql database in the container.
+5. `DESCRIBE videoDB.videos;` to check whether the import was successful. 
+6. If you get Error 1130, then that means the host is not given the permissions from the database to connect.
+7. To check use the `mysql` database in mysql container and query this `SELECT host,user FROM user;`
+8. If the `root` user does not have it's host ip in there or the does not have `'%'` as host then it can't connect. 
+9. To solve execute these commands
+10. `CREATE USER 'root'@'%' IDENTIFIED BY '<yuour_password>';` to create a user `'root'@'%'` that can connect from any ip.
+11. `GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';` to grant all previleges to `'root'@'%'` user.
+12. Now if you check the output of the query, you will see this -
+```
+mysql> SELECT host,user FROM user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | root             |  <-- this :)
+| 127.0.0.1 | root             |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | root             |
++-----------+------------------+
+```
