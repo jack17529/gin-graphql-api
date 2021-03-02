@@ -8,7 +8,9 @@ services:
       - .:/go/src/graphql-srv:rw
     ports:
       - 8080:8080
-    # environment: do we need it here?
+    links:
+     - backend-redis
+    # environment: 
     depends_on:
       - backend-mysql
       - backend-redis
@@ -23,10 +25,11 @@ services:
       - mysql-vol:/var/lib/mysql
 
     environment:
-      MYSQL_ROOT_HOST: ${DB_HOST}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_HOST: 127.0.0.1
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: videoDB
+      # MYSQL_ROOT_HOST: '%'
       # container_name: gin-graphql-srv-mysql
     networks:
       - backend
@@ -39,7 +42,7 @@ services:
     volumes:
       - redis-vol:/data
     # restart: always
-    command: redis-server
+    # command: redis-server
     networks:
       - backend
 
@@ -49,7 +52,7 @@ volumes:
 
 networks:
   backend:
-    driver: bridge
+#     driver: bridge
 
   # adminer:
   #   image: adminer
