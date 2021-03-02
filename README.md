@@ -4,7 +4,7 @@
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.  
 
 ## NOTE
-I have exposed the password for mysql and redis in this sample repository, in production they can be easily protected by using a `.env` file and supplying them.
+I have exposed the password for mysql and redis in this sample repository, in production they can be easily protected by using a `.env` file and supplying them. Then ignore the `.env` file in your `.gitignore` file.
 
 ## gqlgen
 https://github.com/99designs/gqlgen  
@@ -174,6 +174,7 @@ https://github.com/go-redis/redis
 
 ## mysql
 
+0. Change the `dbsource` string and replace `localhost:3306` to `backend-mysql:3306`.
 1. `mysqldump -uroot -ppassword123 -d -B --events --routines --triggers videoDB > mysql_dump.sql` to dump the database.
 2. `sudo docker cp mysql_dump.sql <CONTAINER_ID>:/mysql_dump.sql` to copy the dump file in the mysql docker container.
 3. `sudo docker exec -it <CONTAINER_ID> /bin/bash` to get into the container.
@@ -199,3 +200,7 @@ mysql> SELECT host,user FROM user;
 | localhost | root             |
 +-----------+------------------+
 ```
+
+## redis
+
+1. Just change the `Addr` from `localhost:6379` to `backend-redis:6379`. 
