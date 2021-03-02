@@ -6,14 +6,14 @@ import (
 	"log"
 )
 
-const dbsource = "<USER>:<PASSWORD>@tcp(localhost:3306)/<DATABASE_NAME>"
+const dbsource = "root:password123@tcp(backend-mysql:3306)/videoDB"
 
 var db *sql.DB
 
 func getSession() (*sql.DB, error) {
 	var err error
 
-	db, err = sql.Open("backend-mysql", dbsource)
+	db, err = sql.Open("mysql", dbsource)
 	if err != nil {
 		return nil, err
 	}
