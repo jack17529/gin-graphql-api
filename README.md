@@ -3,6 +3,9 @@
 •	Crafted mutations and queries for the server and modeled a caching service using Redis.  
 The main advantage of using graphql is that is provides more control of the query to the clients as they can get what the need and nothing more.  
 
+## NOTE
+I have exposed the password for mysql and redis in this sample repository, in production they can be easily protected by using a `.env` file and supplying them.
+
 ## gqlgen
 https://github.com/99designs/gqlgen  
 Used `gqlgen` to generate the server code.
